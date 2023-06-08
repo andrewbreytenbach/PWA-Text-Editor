@@ -7,7 +7,7 @@ module.exports = () => {
   return {
     mode: 'development',
     entry: {
-      main: './assets/js/index.js',
+      main: './src/js/index.js',
     },
     output: {
       filename: '[name].bundle.js',

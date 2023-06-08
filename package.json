@@ -16,9 +16,11 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "if-env": "^1.0.4"
+    "if-env": "^1.0.4",
+    "workbox-precaching": "7.0.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "concurrently": "^5.2.0",
     "nodemon": "^2.0.4"
   }
