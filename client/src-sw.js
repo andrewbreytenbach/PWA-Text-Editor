@@ -28,7 +28,8 @@ registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
 // Implement asset caching
 registerRoute(
-  /\.(?:js|css|png|gif|jpg|jpeg|svg)$/,
+  // Update the pattern to match the assets you want to cache
+  ({ request }) => request.destination === 'script' || request.destination === 'style',
   new CacheFirst({
     cacheName: 'asset-cache',
     plugins: [
@@ -36,7 +37,7 @@ registerRoute(
         statuses: [0, 200],
       }),
       new ExpirationPlugin({
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+        maxAgeSeconds: 7 * 24 * 60 * 60, // Adjust the cache expiration time as needed
       }),
     ],
   })
