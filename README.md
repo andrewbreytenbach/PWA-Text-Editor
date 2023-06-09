@@ -43,17 +43,13 @@ When you open the PWA Text Editor, you will see a blank editor interface where y
 
 Text Editor
 
-![New Search](/assets/images/new-search.png "New Search")
-
 The editor provides features such as syntax highlighting, line numbers, and auto-indentation to enhance your text editing experience.
 
 To save your text content, the editor automatically stores the content in the background using IndexedDB. This allows you to access and retrieve your text content even if you close the browser or revisit the app later.
 
-![New Search](/assets/images/new-search.png "New Search")
-
 You can use the toolbar or keyboard shortcuts to perform common text editing actions, such as copying, pasting, and undo/redo.
 
-![New Search](/assets/images/new-search.png "New Search")
+![New Search](/Screenshot%202023-06-08%20at%208.35.44%20PM.png "New Search")
 
 To customize the editor's appearance or behavior, you can modify the CSS styles and JavaScript code as needed.
 
