@@ -41,7 +41,7 @@ module.exports = () => {
 
       // Injects a service worker into the webpack build
       new InjectManifest({
-        swSrc: './src/js/service-worker.js',
+        swSrc: '../service-worker.js',
         swDest: 'service-worker.js',
       }),
     ],

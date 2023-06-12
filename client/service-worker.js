@@ -1,13 +1,18 @@
 // Import the necessary modules
 const { offlineFallback, warmStrategyCache } = require('workbox-recipes');
-const { CacheFirst, StaleWhileRevalidate } = require('workbox-strategies'); // Add the StaleWhileRevalidate import
+const { CacheFirst, StaleWhileRevalidate } = require('workbox-strategies');
 const { registerRoute } = require('workbox-routing');
 const { CacheableResponsePlugin } = require('workbox-cacheable-response');
 const { ExpirationPlugin } = require('workbox-expiration');
 const { precacheAndRoute } = require('workbox-precaching/precacheAndRoute');
 
-// Precache and route the specified files using the Webpack manifest
-precacheAndRoute(self.__WB_MANIFEST);
+// Define the array of files to precache
+const precacheFiles = [
+  // Add the list of files to be precached here
+];
+
+// Precache and route the specified files using the precacheFiles array
+precacheAndRoute(precacheFiles);
 
 // Create a CacheFirst strategy for caching HTML pages
 const pageCache = new CacheFirst({
@@ -34,7 +39,7 @@ registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 // Implement asset caching strategy using StaleWhileRevalidate
 registerRoute(
   ({ request }) => request.destination === 'style' || request.destination === 'script',
-  new StaleWhileRevalidate({ // Use StaleWhileRevalidate strategy
+  new StaleWhileRevalidate({
     cacheName: 'asset-cache',
     plugins: [
       new CacheableResponsePlugin({
