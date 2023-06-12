@@ -1,14 +1,15 @@
-import { registerRoute } from 'workbox-routing';
-import { CacheFirst } from 'workbox-strategies';
-import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-import { ExpirationPlugin } from 'workbox-expiration';
-import { precacheAndRoute } from 'workbox-precaching';
+// Import the necessary modules
+const { offlineFallback, warmStrategyCache } = require('workbox-recipes');
+const { CacheFirst } = require('workbox-strategies');
+const { registerRoute } = require('workbox-routing');
+const { CacheableResponsePlugin } = require('workbox-cacheable-response');
+const { ExpirationPlugin } = require('workbox-expiration');
+const { precacheAndRoute } = require('workbox-precaching/precacheAndRoute');
 
-// Precache and route the specified files
-precacheAndRoute(self.__WB_MANIFEST || []);
+// Precache and route the specified files using the Webpack manifest
+precacheAndRoute(self.__WB_MANIFEST);
 
-
-// Cache strategy for HTML pages
+// Create a CacheFirst strategy for caching HTML pages
 const pageCache = new CacheFirst({
   cacheName: 'page-cache',
   plugins: [
@@ -16,16 +17,21 @@ const pageCache = new CacheFirst({
       statuses: [0, 200],
     }),
     new ExpirationPlugin({
-      maxAgeSeconds: 30 * 24 * 60 * 60,
+      maxAgeSeconds: 30 * 24 * 60 * 60, // Cache expiration time: 30 days
     }),
   ],
 });
 
-// Warm up the cache with specific URLs
-registerRoute(({ request }) => request.mode === 'navigate', pageCache);
-pageCache.precache(['/index.html', '/']);
+// Warm up the cache with specific URLs using the pageCache strategy
+warmStrategyCache({
+  urls: ['/index.html', '/'],
+  strategy: pageCache,
+});
 
-// Cache strategy for assets (stylesheets and scripts)
+// Register a route for navigating to HTML pages, using the pageCache strategy
+registerRoute(({ request }) => request.mode === 'navigate', pageCache);
+
+// Implement asset caching strategy
 registerRoute(
   ({ request }) => request.destination === 'style' || request.destination === 'script',
   new CacheFirst({
@@ -35,7 +41,7 @@ registerRoute(
         statuses: [0, 200],
       }),
       new ExpirationPlugin({
-        maxAgeSeconds: 7 * 24 * 60 * 60, // Adjust the cache expiration time as needed
+        maxAgeSeconds: 7 * 24 * 60 * 60, // Cache expiration time: 7 days
       }),
     ],
   })
