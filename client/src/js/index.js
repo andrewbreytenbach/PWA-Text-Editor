@@ -6,26 +6,29 @@ import '../css/style.css';
 const main = document.querySelector('#main');
 main.innerHTML = '';
 
+// Function to display a loading spinner
 const loadSpinner = () => {
   const spinner = document.createElement('div');
   spinner.classList.add('spinner');
   spinner.innerHTML = `
-  <div class="loading-container">
-  <div class="loading-spinner" />
-  </div>
+    <div class="loading-container">
+      <div class="loading-spinner" />
+    </div>
   `;
   main.appendChild(spinner);
 };
 
+// Create an instance of the Editor class
 const editor = new Editor();
 
+// Check if the Editor instance is undefined
 if (typeof editor === 'undefined') {
-  loadSpinner();
+  loadSpinner(); // Display a loading spinner if the Editor instance is undefined
 }
 
-// Check if service workers are supported
+// Check if service workers are supported in the browser
 if ('serviceWorker' in navigator) {
-  // register workbox service worker
+  // Register the Workbox service worker
   const workboxSW = new Workbox('./service-worker.js');
   workboxSW.register();
 } else {
