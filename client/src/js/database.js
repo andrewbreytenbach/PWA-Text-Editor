@@ -26,8 +26,8 @@ export const putDb = async (content) => {
   const tx = db.transaction('jate', 'readwrite'); // Start a transaction in 'readwrite' mode
   const store = tx.objectStore('jate'); // Get the object store named 'jate'
   
-  // Add the provided content as a new entry in the object store
-  await store.add({ content });
+  // Add the provided content as a new entry in the object store with id: 1 and value: content
+  await store.add({ id: 1, value: content });
   await tx.complete; // Complete the transaction
   
   console.log('Content added to the database:', content);
@@ -39,8 +39,8 @@ export const getDb = async () => {
   const tx = db.transaction('jate', 'readonly'); // Start a transaction in 'readonly' mode
   const store = tx.objectStore('jate'); // Get the object store named 'jate'
   
-  // Retrieve all the content stored in the object store
-  const content = await store.getAll();
+  // Retrieve the content stored in the object store with id: 1
+  const content = await store.get(1);
   await tx.complete; // Complete the transaction
   
   console.log('Retrieved content from the database:', content);
