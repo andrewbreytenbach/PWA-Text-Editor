@@ -43,8 +43,8 @@ export const getDb = async () => {
   const content = await store.get(1);
   await tx.complete; // Complete the transaction
   
-  console.log('Retrieved content from the database:', content);
-  return content; // Return the retrieved content
+  console.log('Retrieved content from the database:', content.value);
+  return content.value; // Return the retrieved content
 };
 
 initDB(); // Initialize the database when the file is executed

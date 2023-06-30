@@ -8,6 +8,7 @@ module.exports = () => {
     mode: 'development',
     entry: {
       main: './src/js/index.js',
+      install: './src/js/install.js',
     },
     output: {
       filename: '[name].bundle.js',
@@ -34,7 +35,7 @@ module.exports = () => {
             destination: path.join('assets', 'icons'),
           },
         ],
-        fingerprints: true, // Add fingerprints to generated assets
+        fingerprints: false, // Add fingerprints to generated assets
         inject: true, // Inject the manifest into the HTML file
         publicPath: '/', // Specify the public path for assets referenced in the manifest
       }),
